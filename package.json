@@ -1,0 +1,39 @@
+{
+  "name": "string-tools-pro",
+  "version": "1.0.0",
+  "description": "Tiny & versatile Node.js library for in-depth text analysis, including character, word, and sentence counting, punctuation analysis, case sensitivity, email and URL detection, and more. Perform text manipulation and data extraction effortlessly. No external dependencies needed.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VishwaGauravIn/string-tools-pro.git"
+  },
+  "keywords": [
+    "string-tools",
+    "text",
+    "analysis",
+    "manipulation",
+    "character",
+    "count",
+    "word",
+    "sentence",
+    "punctuation",
+    "case",
+    "email",
+    "url",
+    "alphanumeric",
+    "whitespace",
+    "parsing",
+    "cookie",
+    "processing",
+    "utilities"
+  ],
+  "author": "VishwaGauravIn",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/VishwaGauravIn/string-tools-pro/issues"
+  },
+  "homepage": "https://github.com/VishwaGauravIn/string-tools-pro#readme"
+}
