@@ -131,24 +131,3 @@ module.exports = {
   extractEmails,
   extractURLs,
 };
-
-const text =
-  "This is a sample text. It contains sentences. vgmaza@gmail.ckm http://apc.com";
-const analysisResult = analyzeText(text);
-console.log("Text Analysis Result:", analysisResult);
-
-const url = "https://www.example.com/search?query=test&page=1";
-const query = findQueryFromURL(url);
-console.log("Query from URL:", query);
-
-const domain = findDomainFromURL(url);
-console.log("Domain from URL:", domain);
-
-const cookieString = "cookie1=value1; cookie2=value2; cookie3=value3";
-const cookies = extractCookie(cookieString);
-console.log("Extracted Cookies:", cookies);
-const urls = extractURLs(text);
-const emails = extractEmails(text);
-
-console.log("URLs:", urls);
-console.log("Emails:", emails);
