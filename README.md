@@ -31,12 +31,12 @@ const stringTools = require('string-tools-pro');
 ```
 
 ## Functions and Sub-Functions
-- [analyzeText()](https://github.com/VishwaGauravIn/string-tools-pro#analyzetextinputtext)
-- [findQueryFromURL()](https://github.com/VishwaGauravIn/string-tools-pro#findqueryfromurlurl)
-- [findDomainFromURL()](https://github.com/VishwaGauravIn/string-tools-pro#finddomainfromurlurl)
-- [extractCookie()](https://github.com/VishwaGauravIn/string-tools-pro#extractcookiecookiestring)
-- [extractEmails()](https://github.com/VishwaGauravIn/string-tools-pro#extractemailsinputtext)
-- [extractURLs()](https://github.com/VishwaGauravIn/string-tools-pro#extracturlsinputtext)
+- [analyzeText()](#analyzetextinputtext)
+- [findQueryFromURL()](#findqueryfromurlurl)
+- [findDomainFromURL()](#finddomainfromurlurl)
+- [extractCookie()](#extractcookiecookiestring)
+- [extractEmails()](#extractemailsinputtext)
+- [extractURLs()](#extracturlsinputtext)
 
 ### `analyzeText(inputText)`
 
