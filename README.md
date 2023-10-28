@@ -1,5 +1,15 @@
-# string-tools-pro
+<div align="center">
+  <h1> <img src="https://github.com/VishwaGauravIn/string-tools-pro/assets/81325730/9796668e-1c02-4a04-bcb8-df70050e1a80" width="80px"><br/>String Tools Pro</h1>
+  <a href="https://www.npmjs.com/package/string-tools-pro"><img src="https://badge.fury.io/js/string-tools-pro.svg"/></a>
+  <a href="https://github.com/your-github-repo/string-tools-pro/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-Apache%202.0-blue.svg"/></a>
+  <a href="https://github.com/your-github-repo/string-tools-pro/issues"><img src="https://img.shields.io/github/issues/VishwaGauravIn/string-tools-pro.svg"/></a>
+  <a href="https://github.com/your-github-repo/string-tools-pro/stargazers"><img src="https://img.shields.io/github/stars/VishwaGauravIn/string-tools-pro.svg"/></a>
+  <img src="https://img.shields.io/github/languages/top/VishwaGauravIn/string-tools-pro"/>
+  <img src="https://img.shields.io/github/languages/code-size/VishwaGauravIn/string-tools-pro"/>
+  <img src="https://img.shields.io/github/last-commit/VishwaGauravIn/string-tools-pro"/>
+</div>
 
+## What is String Tools Pro?
 **Tiny** & **versatile** Node.js library for in-depth text analysis, including character, word, and sentence counting, punctuation analysis, case sensitivity, email and URL detection, and more. Perform **text manipulation** and **data extraction** effortlessly. **No external dependencies** needed.
 
 ## Installation
