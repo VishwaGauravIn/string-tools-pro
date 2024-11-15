@@ -1,42 +1,71 @@
 /* ---------------------------------------------
-
-            </> with 💛 by Vishwa Gaurav
-    GitHub : https://github.com/VishwaGauravIn
+              </> with 💛 by Vishwa Gaurav
+     GitHub : https://github.com/VishwaGauravIn
               Website : https://itsvg.in
-
 ------------------------------------------------ */
 
+/**
+ * Analyzes text and returns various statistical information
+ * @param {string} inputText - The text to analyze
+ * @returns {Object} Analysis results
+ */
 function analyzeText(inputText) {
+  if (!inputText || typeof inputText !== "string") {
+    throw new Error("Input must be a non-empty string");
+  }
+
   const charCount = inputText.length;
   const wordCount = inputText
+    .trim()
     .split(/\s+/)
     .filter((word) => word.length > 0).length;
+
   const sentenceCount = inputText
-    .split(/[.!?]/)
-    .filter((sentence) => sentence.length > 0).length;
+    .split(/[.!?]+/)
+    .filter((sentence) => sentence.trim().length > 0).length;
+
   const newLineCount = (inputText.match(/\n/g) || []).length;
-  const punctuationCount = inputText
-    .split(/[\s,.!?]/)
-    .filter((punctuation) => punctuation.length > 0).length;
-  const consonantCount = inputText.match(/[bcdfghjklmnpqrstvwxyz]/gi).length;
-  const vowelCount = inputText.match(/[aeiou]/gi).length;
+  const punctuationCount = (
+    inputText.match(/[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/g) || []
+  ).length;
+
+  const consonantMatch = inputText.match(/[bcdfghjklmnpqrstvwxyz]/gi) || [];
+  const consonantCount = consonantMatch.length;
+
+  const vowelMatch = inputText.match(/[aeiou]/gi) || [];
+  const vowelCount = vowelMatch.length;
+
   const spaceConsumedOnDisk = calcDiskUsage(inputText);
-  const capitalLetters = inputText.match(/[A-Z]/g).length;
-  const smallLetters = inputText.match(/[a-z]/g).length;
+
+  const capitalLettersMatch = inputText.match(/[A-Z]/g) || [];
+  const capitalLetters = capitalLettersMatch.length;
+
+  const smallLettersMatch = inputText.match(/[a-z]/g) || [];
+  const smallLetters = smallLettersMatch.length;
 
   const totalLetters = capitalLetters + smallLetters;
-  const consonantPercentage = ((consonantCount / totalLetters) * 100).toFixed(
-    2
-  );
-  const vowelPercentage = ((vowelCount / totalLetters) * 100).toFixed(2);
-  const capitalPercentage = ((capitalLetters / totalLetters) * 100).toFixed(2);
-  const smallPercentage = ((smallLetters / totalLetters) * 100).toFixed(2);
 
-  const isEmail = /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b/i.test(inputText);
-  const isURL = /https?:\/\/[^\s/$.?#].[^\s]*/i.test(inputText);
+  const consonantPercentage = totalLetters
+    ? ((consonantCount / totalLetters) * 100).toFixed(2)
+    : "0.00";
+  const vowelPercentage = totalLetters
+    ? ((vowelCount / totalLetters) * 100).toFixed(2)
+    : "0.00";
+  const capitalPercentage = totalLetters
+    ? ((capitalLetters / totalLetters) * 100).toFixed(2)
+    : "0.00";
+  const smallPercentage = totalLetters
+    ? ((smallLetters / totalLetters) * 100).toFixed(2)
+    : "0.00";
+
+  const isEmail = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(inputText);
+  const isURL =
+    /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&//=]*)$/i.test(
+      inputText
+    );
 
   const alphanumericText = inputText.replace(/[^0-9a-z]/gi, "");
-  const whitespaceCount = inputText.match(/\s/g).length;
+  const whitespaceCount = (inputText.match(/\s/g) || []).length;
 
   return {
     charCount,
@@ -60,23 +89,50 @@ function analyzeText(inputText) {
   };
 }
 
+/**
+ * Extracts query parameters from a URL
+ * @param {string} url - The URL to parse
+ * @returns {Object} Query parameters as key-value pairs
+ */
 function findQueryFromURL(url) {
-  const urlObject = new URL(url);
-  const queryJSON = {};
+  try {
+    const urlObject = new URL(url);
+    const queryJSON = {};
 
-  for (const [key, value] of urlObject.searchParams.entries()) {
-    queryJSON[key] = value;
+    for (const [key, value] of urlObject.searchParams.entries()) {
+      queryJSON[key] = value;
+    }
+
+    return queryJSON;
+  } catch (error) {
+    throw new Error("Invalid URL provided");
+  }
+}
+
+/**
+ * Extracts domain from a URL
+ * @param {string} url - The URL to parse
+ * @returns {string} The domain name
+ */
+function findDomainFromURL(url) {
+  try {
+    const urlObject = new URL(url);
+    return urlObject.hostname;
+  } catch (error) {
+    throw new Error("Invalid URL provided");
+  }
+}
+
+/**
+ * Parses cookie string into an object
+ * @param {string} cookieString - The cookie string to parse
+ * @returns {Object} Parsed cookies as key-value pairs
+ */
+function extractCookie(cookieString) {
+  if (!cookieString || typeof cookieString !== "string") {
+    return {};
   }
 
-  return queryJSON;
-}
-
-function findDomainFromURL(url) {
-  const urlObject = new URL(url);
-  return urlObject.hostname;
-}
-
-function extractCookie(cookieString) {
   const cookiesJSON = {};
 
   cookieString.split(";").forEach((cookie) => {
@@ -84,15 +140,25 @@ function extractCookie(cookieString) {
     if (parts.length === 2) {
       const key = parts[0].trim();
       const value = parts[1].trim();
-      cookiesJSON[key] = value;
+      if (key) {
+        cookiesJSON[key] = value;
+      }
     }
   });
 
   return cookiesJSON;
 }
 
+/**
+ * Calculates the disk space usage of a string in bytes
+ * @param {string} inputText - The text to analyze
+ * @returns {number} Number of bytes the text would occupy
+ */
 function calcDiskUsage(inputText) {
-  // Assuming UTF-8 encoding, one character can take 1 to 4 bytes.
+  if (!inputText || typeof inputText !== "string") {
+    return 0;
+  }
+
   let totalBytes = 0;
 
   for (let i = 0; i < inputText.length; i++) {
@@ -108,19 +174,37 @@ function calcDiskUsage(inputText) {
       totalBytes += 4; // 4-byte character
     }
   }
+
   return totalBytes;
 }
 
+/**
+ * Extracts URLs from text
+ * @param {string} inputText - The text to analyze
+ * @returns {string[]} Array of found URLs
+ */
 function extractURLs(inputText) {
-  const urlRegex = /https?:\/\/[^\s/$.?#].[^\s]*/gi;
-  const urls = inputText.match(urlRegex) || [];
-  return urls;
+  if (!inputText || typeof inputText !== "string") {
+    return [];
+  }
+
+  const urlRegex =
+    /https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&//=]*)/gi;
+  return inputText.match(urlRegex) || [];
 }
 
+/**
+ * Extracts email addresses from text
+ * @param {string} inputText - The text to analyze
+ * @returns {string[]} Array of found email addresses
+ */
 function extractEmails(inputText) {
-  const emailRegex = /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b/gi;
-  const emails = inputText.match(emailRegex) || [];
-  return emails;
+  if (!inputText || typeof inputText !== "string") {
+    return [];
+  }
+
+  const emailRegex = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi;
+  return inputText.match(emailRegex) || [];
 }
 
 module.exports = {

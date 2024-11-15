@@ -1,6 +1,6 @@
 {
   "name": "string-tools-pro",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Tiny & versatile Node.js library for in-depth text analysis, including character, word, and sentence counting, punctuation analysis, case sensitivity, email and URL detection, and more. Perform text manipulation and data extraction effortlessly. No external dependencies needed.",
   "main": "index.js",
   "scripts": {
