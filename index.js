@@ -10,8 +10,28 @@
  * @returns {Object} Analysis results
  */
 function analyzeText(inputText) {
+  // Handle null, undefined, or non-string inputs
   if (!inputText || typeof inputText !== "string") {
-    throw new Error("Input must be a non-empty string");
+    return {
+      charCount: 0,
+      wordCount: 0,
+      sentenceCount: 0,
+      newLineCount: 0,
+      punctuationCount: 0,
+      consonantCount: 0,
+      consonantPercentage: "0.00",
+      vowelCount: 0,
+      vowelPercentage: "0.00",
+      spaceConsumedOnDisk: 0,
+      capitalLetters: 0,
+      capitalPercentage: "0.00",
+      smallLetters: 0,
+      smallPercentage: "0.00",
+      isEmail: false,
+      isURL: false,
+      alphanumericText: "",
+      whitespaceCount: 0,
+    };
   }
 
   const charCount = inputText.length;
@@ -95,6 +115,10 @@ function analyzeText(inputText) {
  * @returns {Object} Query parameters as key-value pairs
  */
 function findQueryFromURL(url) {
+  if (!url || typeof url !== "string") {
+    return {};
+  }
+
   try {
     const urlObject = new URL(url);
     const queryJSON = {};
@@ -105,7 +129,7 @@ function findQueryFromURL(url) {
 
     return queryJSON;
   } catch (error) {
-    throw new Error("Invalid URL provided");
+    return {};
   }
 }
 
@@ -115,11 +139,15 @@ function findQueryFromURL(url) {
  * @returns {string} The domain name
  */
 function findDomainFromURL(url) {
+  if (!url || typeof url !== "string") {
+    return "";
+  }
+
   try {
     const urlObject = new URL(url);
     return urlObject.hostname;
   } catch (error) {
-    throw new Error("Invalid URL provided");
+    return "";
   }
 }
 
